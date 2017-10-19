@@ -11,6 +11,9 @@ module.exports = {
         const hashedPass =
             encryption.generateHashedPassword(salt, reqUser.password);
         try {
+			if(reqUser.password===''||reqUser.password.match(/(\s)/)){
+                throw new Error ('There are empty spaces')
+            };
             const user = await User.create({
                 username: reqUser.username,
                 hashedPass,
